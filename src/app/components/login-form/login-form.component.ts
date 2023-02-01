@@ -2,7 +2,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { NgForm } from '@angular/forms'
 import { Trainer } from 'src/app/models/trainer.model';
-import { Router } from '@angular/router';
 import { TrainerService } from 'src/app/services/trainer.service';
 
 @Component({
