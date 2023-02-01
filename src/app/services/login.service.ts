@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, switchMap, Observable, of } from 'rxjs';
+import { map, switchMap, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { StorageKeys } from '../enums/storagekeys.enum';
 import { Trainer } from '../models/trainer.model';
+import { StorageUtil } from '../utils/storage.util';
 
 const {apiTrainers, apiKey} = environment;
 
@@ -25,6 +27,9 @@ export class LoginService {
           return this.createUser(username);
         }
         return of(user);
+      }),
+      tap((user: Trainer) => {
+        StorageUtil.storageSave<Trainer>(StorageKeys.Trainer, user)
       })
     )
   }
@@ -36,7 +41,8 @@ export class LoginService {
       map((response: Trainer[]) => response.pop()) //.pop() Take last item in array and return it
     )
   }
-  //If NOT user - Create user
+
+  //Create user
   private createUser(username: string): Observable<Trainer> {
     const user = {
       username,
@@ -52,5 +58,4 @@ export class LoginService {
       headers
     })
   }
-  //If user or user created - continue and store user
 }
