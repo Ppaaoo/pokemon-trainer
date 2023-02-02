@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { LoginPage } from './pages/login/login.page';
@@ -25,6 +26,7 @@ import { PokemonListComponent } from './components/pokemon-list/pokemon-list.com
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

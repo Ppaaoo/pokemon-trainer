@@ -1,5 +1,26 @@
-<ul>
-    <li *ngFor="let pokemon of pokemons">
-        <span>{{ pokemon.name }}</span>
-    </li>
-</ul>
+<div class="grid gap-4 p-5 grid-cols-4">
+    <div *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemon }" 
+        class="w-full h-72 p-3 shadow-md rounded m-auto border border-slate-200 relative">
+        <span class="flex">
+            <aside class="px-2 top-0 left-0">{{pokemon.id}}.</aside>
+            <p>{{pokemon.name}}</p>
+            <aside class="absolute top-0 right-0">
+                <img [src]="pokemon.sprites.front_default" alt={{pokemon.name class="border"/>
+            </aside>
+        </span>
+        <span class="flex py-2 px-6">
+            <p>{{pokemon.types[0].type.name}} </p>
+            <p *ngIf="pokemon.types[1]" class="mx-2"> {{pokemon.types[1].type.name}}</p>
+        </span>
+        <span class="absolute bottom-0 left-0 p-2">
+            <p>
+                <b>Height:</b> {{pokemon.height}}
+            </p>
+            <p>
+                <b>Weight:</b> {{pokemon.weight}}
+            </p>
+        </span>
+    </div>
+</div>
+
+<pagination-controls (pageChange)="renderPage($event)" class="text-center"></pagination-controls>

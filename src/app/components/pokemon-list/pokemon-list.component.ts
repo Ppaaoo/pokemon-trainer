@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Pokemon } from 'src/app/models/pokemon.model';
+import { PokemonCataloguePage } from 'src/app/pages/pokemon-catalogue/pokemon-catalogue.page';
+import { PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -8,6 +9,24 @@ import { Pokemon } from 'src/app/models/pokemon.model';
 })
 export class PokemonListComponent {
 
-  @Input() pokemons: Pokemon[] = [];
+  public page: number = this.pokemonCatalogueService.page;
+  public totalPokemon: number = this.pokemonCatalogueService.totalPokemon;
 
+  @Input() pokemons: any[] = [];
+
+  constructor(
+    private readonly pokemonCatalogueService: PokemonCatalogueService,
+    private readonly pokemonCataloguePage: PokemonCataloguePage,
+  ) { }
+
+  getPokemon(){
+    this.pokemonCataloguePage.getPokemon();
+    console.log(`Pokemon-list page:${this.page} totalPokemon:${this.totalPokemon}`)
+  }
+
+  renderPage(event: number) {
+    this.pokemonCatalogueService.page = event;
+    this.pokemons = [];
+    this.getPokemon();
+  }
 }
