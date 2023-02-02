@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Pokemon } from 'src/app/models/pokemon.model';
 import { PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.service';
 
 @Component({
@@ -8,8 +7,9 @@ import { PokemonCatalogueService } from 'src/app/services/pokemon-catalogue.serv
   styleUrls: ['./pokemon-catalogue.page.css']
 })
 export class PokemonCataloguePage implements OnInit {
+  pokemons: any[] = [];
 
-  get pokemon(): Pokemon[] {
+  get pokemon(): any[] {
     return this.pokemonCatalogueService.pokemon;
   }
 
@@ -21,12 +21,25 @@ export class PokemonCataloguePage implements OnInit {
     return this.pokemonCatalogueService.error;
   }
   
-
   constructor(
     private readonly pokemonCatalogueService: PokemonCatalogueService,
   ){ }
 
   ngOnInit(): void {
-    this.pokemonCatalogueService.findAllPokemon();
+    this.getPokemon();
+  }
+
+  getPokemon() {
+    this.pokemonCatalogueService.findPokemons(10, this.pokemonCatalogueService.page + 0)
+    .subscribe((response: any) => {
+      this.pokemonCatalogueService.totalPokemon = response.count;
+      console.log(`${this.pokemonCatalogueService.totalPokemon} and ${this.pokemonCatalogueService.page}`)
+      response.results.forEach((result: any) => {
+        this.pokemonCatalogueService.getMorePokemonData(result.name)
+        .subscribe((uniqueResponse: any) => {
+          this.pokemons.push(uniqueResponse);
+        });
+      });
+    });
   }
 }

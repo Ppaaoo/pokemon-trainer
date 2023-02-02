@@ -1,10 +1,13 @@
 export interface Pokemon {
     name: string;
-    //Add type and other info later
+    id: number;
+    height: number;
+    sprites: PokemonSprites[]
 }
 
-export interface PokemonSprites {
+type PokemonSprites = {
     back_default: string;
+    back_female: string;
     back_shiny: string;
     front_default: string;
     front_shiny: string;
