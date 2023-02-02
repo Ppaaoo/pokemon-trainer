@@ -1,6 +1,16 @@
 <ul>
-    <li *ngFor="let pokemon of pokemons"><span>
-        {{pokemon}}
-    </span>></li>
+    
+    <li *ngFor="let pokemon of pokemons | keyvalue"><span>
+        {{pokemon.key | json}} : {{pokemon.value | json}}
+        <!-- <div *ngFor="let obcategory of pokemon.value | keyvalue">
+        <div *ngFor="let nestedobcategory of pokemon.value | keyvalue">
+            {{nestedobcategory.value.name}}
+        </div>
+    </div> -->
+    </span></li>
+    
+    
+    
     
 </ul>
+

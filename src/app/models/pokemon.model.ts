@@ -18,7 +18,7 @@
 export interface Pokemon {
     count: number;
     next: string;
-    previous: number;
+    previous: string | null;
     results: PokemonSprites;
     
     //Add type and other info later

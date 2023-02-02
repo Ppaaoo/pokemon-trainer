@@ -35,7 +35,7 @@ export class PokemonCatalogueService {
     )
       .subscribe({
         next: (pokemons: Pokemon[]) => {
-          console.log("pokemons  ---> " + pokemons.keys)
+          console.log("pokemons  ---> " + JSON.stringify(pokemons))
           this._pokemons = pokemons
         },
         error: (error: HttpErrorResponse) => {
