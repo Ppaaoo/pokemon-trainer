@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, finalize, map } from 'rxjs';
+import { finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Pokemon } from '../models/pokemon.model';
 
 const { apiPokemon } = environment
 
@@ -11,11 +10,15 @@ const { apiPokemon } = environment
 })
 export class PokemonCatalogueService {
 
-  private _pokemon$: Pokemon[] = [];
+  private _pokemon$: any[] = [];
   private _error: string = "";
   private _loading: boolean = false;
 
-  public get pokemon(): Pokemon[] {
+    //pagination
+    private _page = 1;
+    private _totalPokemon: number = 0;
+
+  public get pokemon(): any[] {
     return this._pokemon$;
   }
 
@@ -27,32 +30,36 @@ export class PokemonCatalogueService {
     return this._loading;
   }
 
+  public get page(): number {
+    return this._page;
+  }
+  public set page(currentPage) {
+    this._page = currentPage;
+  }
+
+  public get totalPokemon(): number {
+    return this._totalPokemon;
+  }
+
+  public set totalPokemon(totalPokemon) {
+    this._totalPokemon = totalPokemon;
+  }
+
   constructor(
     private readonly http: HttpClient,
   ) { }
 
-  public findAllPokemon(): void {
+  public findPokemons(limit: number, offset: number) {
     this._loading = true;
-    this.http.get<Pokemon[]>(apiPokemon)
+    return this.http.get<any[]>(`${apiPokemon}?limit=${limit}&offset=${offset-1} + 0`)
     .pipe(
       finalize(() => {
         this._loading = false;
       }),
-      /*map((pokemonResponse: PokemonResponse) => {
-        pokemonResponse.results;
-      })*/
     )
-    .subscribe({
-      next: (pokemon: Pokemon[]) => {
-        this._pokemon$ = pokemon;
-      },
-      error: (error: HttpErrorResponse) => {
-        this._error = error.message;
-      }
-    })
   }
-}
 
-interface PokemonResponse {
-  results: Pokemon[]
+  public getMorePokemonData(name: string) {
+    return this.http.get(`${apiPokemon}/${name}`);
+  }
 }
