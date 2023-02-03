@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { finalize } from 'rxjs';
+import { BehaviorSubject, finalize, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 const { apiPokemon } = environment
 import { Pokemon } from '../models/pokemon.model';
@@ -14,6 +14,7 @@ export class PokemonCatalogueService {
   private _error: string = "";
   private _loading: boolean = false
 
+  // private readonly _pokemons$: BehaviorSubject<Pokemon[]> = new BehaviorSubject<Pokemon>([]);
   get pokemons(): Pokemon[] {
     return this._pokemons;
   }
@@ -24,23 +25,35 @@ export class PokemonCatalogueService {
   get loading(): boolean {
     return this._loading;
   }
+
+  // get pokemons$(): Observable<Pokemon[]>{
+  //   return this._pokemons$.asObservable()
+  // }
   constructor(private readonly http: HttpClient) { }
 
-  public findAllPokemons(): void{
-    this.http.get<Pokemon[]>(apiPokemon)
-    .pipe(
-      finalize(() => {
-        this._loading = false;
-      })
-    )
-      .subscribe({
-        next: (pokemons: Pokemon[]) => {
-          console.log("pokemons  ---> " + JSON.stringify(pokemons))
-          this._pokemons = pokemons
-        },
-        error: (error: HttpErrorResponse) => {
-          this._error = error.message;
-        }
-      })
+  public findAllPokemons(){
+    return this.http.get(apiPokemon);
+    // .pipe(
+    //   finalize(() => {
+    //     this._loading = false;
+    //   })
+    // )
+    //   .subscribe({
+        
+    //     next: (pokemons: Pokemon[]) => {
+    //       console.log("pokemons  ---> " + JSON.stringify(pokemons))
+    //       this._pokemons = pokemons
+    //     },
+    //     error: (error: HttpErrorResponse) => {
+    //       this._error = error.message;
+    //     }
+    //   })
+  }
+
+  public getMorePokemonData(name: string) {
+    return this.http.get(`${apiPokemon}/${name}`)
+  }
+  public PokemonById(id: string): Pokemon | undefined {
+    return this._pokemons.find((pokemon: Pokemon) => pokemon.id === id)
   }
 }

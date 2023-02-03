@@ -1,16 +1,15 @@
-<ul>
+<div class="box" *ngFor="let pokemon of pokemons">
+    <app-favorite-guitar-button [pokemonID]="pokemon.id"></app-favorite-guitar-button>
+    <img [src]="pokemon.sprites.front_default" alt="pokemon">
+    <h3>{{pokemon.name}}</h3>
+    <p>
+        <b>Type: </b> {{pokemon.types[0].type.name}}
+    </p>
+    <p>
+        <b>Height: </b> {{pokemon.types[0].type.Height}}
+    </p>
+    <p>
+        <b>Health: </b> {{pokemon.stats[0].base_stat}}
+    </p>
     
-    <li *ngFor="let pokemon of pokemons | keyvalue"><span>
-        {{pokemon.key | json}} : {{pokemon.value | json}}
-        <!-- <div *ngFor="let obcategory of pokemon.value | keyvalue">
-        <div *ngFor="let nestedobcategory of pokemon.value | keyvalue">
-            {{nestedobcategory.value.name}}
-        </div>
-    </div> -->
-    </span></li>
-    
-    
-    
-    
-</ul>
-
+</div>
