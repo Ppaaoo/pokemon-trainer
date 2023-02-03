@@ -21,16 +21,17 @@ export class PokemonListComponent {
 
   ngOnInit(): void {
     this.totalPokemon = this.pokemonCatalogueService.totalPokemon;
+    this.pokemons = this.pokemonCataloguePage.pokemons;
   }
 
   getPokemon(){
     this.pokemonCataloguePage.getPokemon();
-    console.log(`Pokemon-list page:${this.page} totalPokemon:${this.totalPokemon}`)
+    console.log(`Pokemon-list page:${this.page}`)
   }
 
   renderPage(event: number) {
     this.pokemonCatalogueService.page = event;
-    this.getPokemon();
     this.page = this.pokemonCatalogueService.page;
+    this.getPokemon();
   }
 }

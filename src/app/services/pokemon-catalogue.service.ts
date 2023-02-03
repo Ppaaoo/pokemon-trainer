@@ -15,7 +15,7 @@ export class PokemonCatalogueService {
   private _loading: boolean = false;
 
     //pagination
-    private _page = 1;
+    private _page = 0;
     private _totalPokemon: number = 0;
 
   public get pokemon(): any[] {
@@ -51,7 +51,8 @@ export class PokemonCatalogueService {
 
   public findPokemons(limit: number, offset: number) {
     this._loading = true;
-    return this.http.get<any[]>(`${apiPokemon}?limit=${limit}&offset=${offset-1} + 0`)
+    console.log(offset);
+    return this.http.get<any[]>(`${apiPokemon}?limit=${limit}&offset=${offset * 10}`)
     .pipe(
       finalize(() => {
         this._loading = false;
