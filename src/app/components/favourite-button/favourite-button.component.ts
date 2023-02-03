@@ -24,7 +24,7 @@ export class FavouriteButtonComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    // this.isFavourite = this.trainerService.inFavourite(this.pokemonId)
+    this.isFavourite = this.trainerService.inFavourite(this.pokemonId)
     
   }
 
@@ -32,11 +32,7 @@ export class FavouriteButtonComponent implements OnInit{
     this.favouriteservice.addToFavourite(this.pokemonId)
     .subscribe({
       next: (trainer: Trainer) => {
-        console.log("the is ", this.pokemonId)
         this.isFavourite = this.trainerService.inFavourite(this.pokemonId)
-        console.log("Id---> " ,this.trainerService.inFavourite(this.pokemonId))
-        console.log("this.isFavouri   t e " , this.isFavourite)
-        console.log("NEXT ", trainer)
       },
       error:(error: HttpErrorResponse) =>{
         console.log("ERROR " , error.message)

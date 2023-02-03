@@ -24,11 +24,6 @@ export class FavouriteService {
     private readonly trainerService: TrainerService
   ) { }
 
-  // git the Pokemon based on the ID
-
-
-  // PATCH request to the server (Pokemon , pokemonId)
-
 
   public addToFavourite(pokemonId: number): Observable<Trainer> {
     if(!this.trainerService.trainer){
@@ -36,7 +31,6 @@ export class FavouriteService {
     }
     const trainer: Trainer = this.trainerService.trainer;
     const pokemon: any | undefined =  this.pokemonService.pokemonById(pokemonId);
-    console.log("--> ", pokemon)
 
     if(!pokemon){
       throw new Error("From addToFavourite : No pokemon ith Id: " + pokemonId);
@@ -53,11 +47,11 @@ export class FavouriteService {
       'x-api-key': apiKey
     })
     this._loading =  true
-    const favouritePokemon = {
-      pokemonName: pokemon.name,
-      pokemonImage: pokemon.sprites.front_default,
-      id: pokemon.id
-    }
+    // const favouritePokemon = {
+    //   pokemonName: pokemon.name,
+    //   pokemonImage: pokemon.sprites.front_default,
+    //   id: pokemon.id
+    // }
     return this.http.patch<Trainer>(`${apiTrainers}/${trainer.id}`, {
       pokemon: [...trainer.pokemon]
     },{

@@ -25,13 +25,12 @@ export class TrainerService {
 
   public inFavourite(pokemonId: number): boolean{
     if(this._trainer){
-      console.log("this.trainer?.pokemon " ,this.trainer?.pokemon)
+      //console.log("this.trainer?.pokemon " ,this.trainer?.pokemon)
       return Boolean(this._trainer?.pokemon.find((pokemon: Pokemon) => pokemon.id === pokemonId));
     }
     return false;
   }
-
-
+ 
   public addTofavourite(pokemon: any): void{
     if(this._trainer){
       this._trainer.pokemon.push(pokemon);
@@ -39,7 +38,7 @@ export class TrainerService {
   }
   public removeFromFavourite(pokemonId: number): void{
     if(this._trainer){
-      this._trainer.pokemon = this._trainer.pokemon.filter((pokemon, Pokemon) => pokemon.id !== pokemonId);
+      this._trainer.pokemon = this._trainer.pokemon.filter((pokemon: Pokemon) => pokemon.id !== pokemonId);
     }
   }
 }
