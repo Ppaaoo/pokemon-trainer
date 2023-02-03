@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { finalize, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pokemon } from '../models/pokemon.model';
 import { Trainer } from '../models/trainer.model';
@@ -12,6 +13,11 @@ const {apiTrainers, apiKey} = environment
   providedIn: 'root'
 })
 export class FavoriteService {
+
+  private _loading: boolean = false
+  get loading(): boolean{
+    return this._loading;
+  }
   
   constructor(
     private http: HttpClient,
@@ -23,7 +29,7 @@ export class FavoriteService {
 
 
   // patch request with user id and pokemon name
-  public addToFavorites(pokemonID: string): void {
+  public addToFavorites(pokemonID: number): Observable<any> {
     if(!this.trainerService.trainer){
       throw new Error("addToFavorites: There is no trainer");
     }
@@ -37,8 +43,20 @@ export class FavoriteService {
       throw new Error("Pokemon is already in favorites.")
     }
 
-    
-    this.http.patch(`${apiTrainers}/${trainer.id}`, {
-      fa
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'x-api-key': apiKey
     })
+    
+    return this.http.patch(`${apiTrainers}/${trainer.id}`, {
+      pokemon: [...trainer.pokemon, pokemon]
+    },
+    {
+      headers
+    }
+    ).pipe(
+      finalize(() => {
+        this._loading = false;
+      })
+    )
 }}

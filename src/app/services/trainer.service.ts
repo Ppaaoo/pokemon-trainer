@@ -4,7 +4,7 @@ import { Pokemon } from '../models/pokemon.model';
 import { Trainer } from '../models/trainer.model';
 import { StorageUtil } from '../utils/storage.util';
 import { FavoriteService } from './favorite.service';
-e
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,10 +24,11 @@ export class TrainerService {
     this._trainer = StorageUtil.storageRead<Trainer>(StorageKeys.Trainer);
   }
 
-  public inFavorites(pokemonId: string): boolean {
+  public inFavorites(pokemonId: number): boolean {
     if(this._trainer){
-      return Boolean(this.trainer?.favorites.find((pokemon: Pokemon) => {
-        pokemon.id === pokemonId
+      return Boolean(this.trainer?.pokemon.find((pokemon: Pokemon) => {
+        console.log(typeof pokemon.id)
+        parseInt(pokemon.id) === pokemonId
       }))
     }
     return false
