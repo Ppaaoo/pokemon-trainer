@@ -19,6 +19,10 @@ export class PokemonListComponent {
     private readonly pokemonCataloguePage: PokemonCataloguePage,
   ) { }
 
+  ngOnInit(): void {
+    this.totalPokemon = this.pokemonCatalogueService.totalPokemon;
+  }
+
   getPokemon(){
     this.pokemonCataloguePage.getPokemon();
     console.log(`Pokemon-list page:${this.page} totalPokemon:${this.totalPokemon}`)
@@ -26,7 +30,7 @@ export class PokemonListComponent {
 
   renderPage(event: number) {
     this.pokemonCatalogueService.page = event;
-    this.pokemons = [];
     this.getPokemon();
+    this.page = this.pokemonCatalogueService.page;
   }
 }
