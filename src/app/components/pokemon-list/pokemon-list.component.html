@@ -1,6 +1,7 @@
-<div class="grid gap-4 p-5 grid-cols-4">
+<div class="grid gap-4 p-5 grid-cols-4 relative">
     <div *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemon }" 
         class="w-full h-72 p-3 shadow-md rounded m-auto border border-slate-200 relative">
+        <app-favourite-button [pokemonId]="pokemon.id"></app-favourite-button>
         <span class="flex">
             <aside class="px-2 top-0 left-0">{{pokemon.id}}.</aside>
             <p>{{pokemon.name}}</p>

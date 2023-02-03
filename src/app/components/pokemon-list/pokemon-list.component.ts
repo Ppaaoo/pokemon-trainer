@@ -21,7 +21,7 @@ export class PokemonListComponent {
 
   getPokemon(){
     this.pokemonCataloguePage.getPokemon();
-    console.log(`Pokemon-list page:${this.page} totalPokemon:${this.totalPokemon}`)
+    //console.log(`Pokemon-list page:${this.page} totalPokemon:${this.totalPokemon}`)
   }
 
   renderPage(event: number) {

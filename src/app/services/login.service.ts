@@ -41,7 +41,7 @@ export class LoginService {
   private createUser(username: string): Observable<Trainer> {
     const user = {
       username,
-      favorites: []
+      pokemon: []
     };
 
     const headers = new HttpHeaders({
