@@ -24,6 +24,7 @@ import { FavouriteButtonComponent } from './components/favourite-button/favourit
     PokemonListComponent,
     NavbarComponent,
     FavouriteButtonComponent
+
   ],
   imports: [ //Modules
     BrowserModule,
@@ -32,7 +33,7 @@ import { FavouriteButtonComponent } from './components/favourite-button/favourit
     FormsModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [PokemonCataloguePage],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,13 +10,11 @@ import { TrainerService } from 'src/app/services/trainer.service';
   styleUrls: ['./favourite-button.component.css']
 })
 export class FavouriteButtonComponent implements OnInit{
-
+  public loading: boolean = false
   public isFavourite: boolean = false
   @Input() pokemonId: number = 0; 
 
-  get loading(): boolean {
-    return this.favouriteservice.loading;
-  }
+  
 
   constructor(
     private readonly favouriteservice: FavouriteService,
@@ -29,9 +27,11 @@ export class FavouriteButtonComponent implements OnInit{
   }
 
   onFavouriteClick(): void {
+      this.loading = true
     this.favouriteservice.addToFavourite(this.pokemonId)
     .subscribe({
       next: (trainer: Trainer) => {
+        this.loading = false;
         this.isFavourite = this.trainerService.inFavourite(this.pokemonId)
       },
       error:(error: HttpErrorResponse) =>{
