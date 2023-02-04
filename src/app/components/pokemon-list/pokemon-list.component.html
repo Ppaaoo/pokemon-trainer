@@ -1,4 +1,3 @@
-
 <!-- <div class="grid gap-4 p-5 grid-cols-4 relative">
     <div *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemon }" 
         class="w-full h-72 p-3 shadow-md rounded m-auto border border-slate-200 relative">
@@ -14,7 +13,19 @@
             <p>{{pokemon.types[0].type.name}} </p>
             <p *ngIf="pokemon.types[1]" class="mx-2"> {{pokemon.types[1].type.name}}</p>
         </span>
-        <span class="absolute bottom-0 left-0 p-2"> -->
+        <span class="absolute bottom-0 left-0 p-2">
+            <p>
+                <b>Height:</b> {{pokemon.height}}
+            </p>
+            <p>
+                <b>Weight:</b> {{pokemon.weight}}
+            </p>
+        </span>
+    </div>
+</div>
+
+<pagination-controls (pageChange)="renderPage($event)" class="text-center"></pagination-controls> -->
+
 
 <div class="grid gap-4 p-5 grid-cols-4 bg-[#F8EDE3] items-center">
     <div *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemon }" 
@@ -31,7 +42,6 @@
             <h5 class="text-gray-900 text-xl font-medium mb-2"> {{pokemon.id}}. {{pokemon.name}}</h5>
         </div>
         <div class="relative bottom-0">
-
             <p>
                 <b>Height: </b> {{pokemon.height}}
             </p>
