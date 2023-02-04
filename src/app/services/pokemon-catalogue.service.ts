@@ -16,7 +16,7 @@ export class PokemonCatalogueService {
   private _loading: boolean = false;
   
     //pagination
-    private _page = 1;
+    private _page = 0;
     private _totalPokemon: number = 0;
 
   public get pokemon(): any[] {
@@ -51,11 +51,17 @@ export class PokemonCatalogueService {
   ) { }
 
   public findPokemons(limit: number, offset: number) {
-    // if(this._pokemon.length > 0 || this.loading){
-    //   return
-    // }
-    this._loading =  true;
-    this.http.get<Pokemon[]>(apiPokemon)
+// <<<<<<< HEAD
+//     // if(this._pokemon.length > 0 || this.loading){
+//     //   return
+//     // }
+//     this._loading =  true;
+//     this.http.get<Pokemon[]>(apiPokemon)
+// =======
+    this._loading = true;
+    console.log(offset);
+    return this.http.get<any[]>(`${apiPokemon}?limit=${limit}&offset=${offset * 10}`)
+
     .pipe(
       finalize(() => {
         this._loading = false
