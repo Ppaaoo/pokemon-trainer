@@ -66,7 +66,6 @@ export class PokemonCatalogueService {
         response.results.forEach((result: any) => {
           this.getMorePokemonData(result.name)
           .subscribe((uniqueResponse: any) => {
-            // console.log("uniqueResponse ", uniqueResponse)
             this._pokemon.push(uniqueResponse);
           });
         })
