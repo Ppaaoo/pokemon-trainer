@@ -1,27 +1,27 @@
-<div class="grid gap-4 p-5 grid-cols-4 relative">
+
+<div class="grid gap-4 p-5 grid-cols-4 bg-[#F8EDE3] items-center">
     <div *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemon }" 
-        class="w-full h-72 p-3 shadow-md rounded m-auto border border-slate-200 relative">
-        <app-favourite-button [pokemonId]="pokemon.id"></app-favourite-button>
-        <span class="flex">
-            <aside class="px-2 top-0 left-0">{{pokemon.id}}.</aside>
-            <p>{{pokemon.name}}</p>
-            <aside class="absolute top-0 right-0">
-                <img [src]="pokemon.sprites.front_default" alt={{pokemon.name class="border"/>
-            </aside>
-        </span>
-        <span class="flex py-2 px-6">
-            <p>{{pokemon.types[0].type.name}} </p>
-            <p *ngIf="pokemon.types[1]" class="mx-2"> {{pokemon.types[1].type.name}}</p>
-        </span>
-        <span class="absolute bottom-0 left-0 p-2">
+        class="w-full h-72 p-3 shadow-md rounded m-auto relative bg-gradient-to-b from-[#caa68f] to-[#D0B8A8] hover:-translate-y-1">
+        <div class="rounded-lg shadow-lg max-w-sm flex bg-gradient-to-b from-[#d8c3a7] to-[#DFD3C3]">
+            <img [src]="pokemon.sprites.front_default" alt={{pokemon.name}} class="rounded-t-lg relative left-2 hover:scale-150"/>
+            <div>
+                <p class="text-slate-800 text-xl text-center absolute py-4 left-40">{{pokemon.types[0].type.name}}</p>
+                <p *ngIf="pokemon.types[1]" class="text-slate-700 text-xl absolute py-10 left-40"> {{pokemon.types[1].type.name}}</p>
+            </div>
+        </div>
+        <div class="flex py-2 px-2">
+            <h5 class="text-gray-900 text-xl font-medium mb-2"> {{pokemon.id}}. {{pokemon.name}}</h5>
+        </div>
+        <div class="relative bottom-0">
+
             <p>
-                <b>Height:</b> {{pokemon.height}}
+                <b>Height: </b> {{pokemon.height}}
             </p>
             <p>
-                <b>Weight:</b> {{pokemon.weight}}
+                <b>Weight: </b> {{pokemon.weight}}
             </p>
-        </span>
+        </div>
     </div>
 </div>
 
-<pagination-controls (pageChange)="renderPage($event)" class="text-center"></pagination-controls>
+<pagination-controls (pageChange)="renderPage($event)" class="my-pagination text-center"></pagination-controls>

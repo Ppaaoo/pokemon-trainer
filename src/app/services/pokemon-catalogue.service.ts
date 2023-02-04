@@ -16,7 +16,7 @@ export class PokemonCatalogueService {
   private _loading: boolean = false;
   
     //pagination
-    private _page = 1;
+    private _page = 0;
     private _totalPokemon: number = 0;
 
   public get pokemon(): any[] {

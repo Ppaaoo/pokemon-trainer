@@ -30,7 +30,7 @@ export class PokemonCataloguePage implements OnInit {
   }
 
   getPokemon() {
-    this.pokemonCatalogueService.findPokemons(10, this.pokemonCatalogueService.page + 0)
+    this.pokemonCatalogueService.findPokemons(20, this.pokemonCatalogueService.page)
     .subscribe((response: any) => {
       this.pokemonCatalogueService.totalPokemon = response.count;
       response.results.forEach((result: any) => {
