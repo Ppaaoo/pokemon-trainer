@@ -12,6 +12,7 @@ import { TrainerPage } from './pages/trainer/trainer.page';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FavouriteButtonComponent } from './components/favourite-button/favourite-button.component';
 
 @NgModule({
   declarations: [ //Components
@@ -21,7 +22,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     TrainerPage,
     LoginFormComponent,
     PokemonListComponent,
-    NavbarComponent
+    NavbarComponent,
+    FavouriteButtonComponent
   ],
   imports: [ //Modules
     BrowserModule,
@@ -30,7 +32,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FormsModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [PokemonCataloguePage],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

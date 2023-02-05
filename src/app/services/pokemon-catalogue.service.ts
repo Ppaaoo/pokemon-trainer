@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Pokemon } from '../models/pokemon.model';
 
 const { apiPokemon } = environment
 
@@ -10,7 +11,7 @@ const { apiPokemon } = environment
 })
 export class PokemonCatalogueService {
 
-  private _pokemon$: any[] = [];
+  public _pokemon$: any[] = [];
   private _error: string = "";
   private _loading: boolean = false;
 
@@ -50,8 +51,20 @@ export class PokemonCatalogueService {
   ) { }
 
   public findPokemons(limit: number, offset: number) {
+    // if(this._pokemon$.length > 0 || this.loading){
+    //   return;
+    // }
     this._loading = true;
-    console.log(offset);
+    this.http.get<any[]>(`${apiPokemon}?limit=${limit}&offset=${offset * 10}`)
+    .subscribe((response: any) => {
+      this.totalPokemon = response.count;
+      response.results.forEach((result: any) => {
+        this.getMorePokemonData(result.name)
+        .subscribe((uniqueResponse: any) => {
+          this._pokemon$.push(uniqueResponse);
+        });
+      });
+    });
     return this.http.get<any[]>(`${apiPokemon}?limit=${limit}&offset=${offset * 10}`)
     .pipe(
       finalize(() => {
@@ -60,7 +73,13 @@ export class PokemonCatalogueService {
     )
   }
 
+
   public getMorePokemonData(name: string) {
     return this.http.get(`${apiPokemon}/${name}`);
+  }
+
+  public pokemonById(id: number): Pokemon | undefined {
+    console.log("pkemonById this._pokemon$ ", this._pokemon$ )
+    return this._pokemon$.find((pokemon: Pokemon) => pokemon.id === id);
   }
 }
