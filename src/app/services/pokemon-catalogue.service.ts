@@ -51,7 +51,7 @@ export class PokemonCatalogueService {
   ) { }
 
   public findPokemons(limit: number, offset: number) {
-    // if(this._pokemon$.length > 0 || this.loading){
+    // if(this._pokemon$  && this._pokemon$.length > 0 || this.loading){
     //   return;
     // }
     this._loading = true;
@@ -79,7 +79,6 @@ export class PokemonCatalogueService {
   }
 
   public pokemonById(id: number): Pokemon | undefined {
-    console.log("pkemonById this._pokemon$ ", this._pokemon$ )
     return this._pokemon$.find((pokemon: Pokemon) => pokemon.id === id);
   }
 }
