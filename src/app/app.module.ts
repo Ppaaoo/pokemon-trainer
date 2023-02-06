@@ -13,7 +13,6 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FavouriteButtonComponent } from './components/favourite-button/favourite-button.component';
-
 @NgModule({
   declarations: [ //Components
     AppComponent,
