@@ -25,6 +25,7 @@ export class TrainerService {
   
   public inFavourites(pokemonId: number): boolean{
     if(this.trainer){
+      console.log(this.trainer?.pokemon)
       return Boolean(this.trainer?.pokemon.find((pokemon: Pokemon) => pokemon.id === pokemonId))
     }
     return false;
