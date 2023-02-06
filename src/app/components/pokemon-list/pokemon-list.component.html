@@ -1,6 +1,6 @@
 <div class="grid gap-4 p-5 grid-cols-4 bg-[#F8EDE3] items-center">
     <div *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemon }" 
-        class="w-full h-72 p-3 shadow-md rounded m-auto relative bg-gradient-to-b from-[#caa68f] to-[#D0B8A8] hover:-translate-y-1 relative">
+        class="w-full h-72 p-3 shadow-md rounded m-auto bg-gradient-to-b from-[#caa68f] to-[#D0B8A8] hover:-translate-y-1 relative">
         <app-favourite-button [pokemonId]="pokemon.id"></app-favourite-button>
         <div class="rounded-lg shadow-lg max-w-sm flex bg-gradient-to-b from-[#d8c3a7] to-[#DFD3C3]">
             <img [src]="pokemon.sprites.front_default" alt={{pokemon.name}} class="rounded-t-lg relative left-2 hover:scale-150"/>
